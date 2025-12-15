@@ -8,7 +8,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 from sklearn.impute import SimpleImputer
 
-# Load the dataset
+# Load the dataset shshs
 data = pd.read_csv('adult 3.csv')
 
 # Data Exploration
