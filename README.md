@@ -1,6 +1,5 @@
 # 💼 Employee Salary Prediction using Machine Learning
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://dinesh9997-employee-salary-prediction-app-cinlrc.streamlit.app/)
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
 [![Scikit-Learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
@@ -86,7 +85,8 @@ python train_pipeline.py
 ```bash
 python -m streamlit run app.py
 ```
-Open **[http://localhost:8501](http://localhost:8501)** in your browser to view your live local application!
+Open the Local URL displayed in your terminal (typically `http://localhost:8501`) in your browser to view your live local application!
+
 
 ---
 
