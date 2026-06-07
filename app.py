@@ -137,17 +137,22 @@ st.markdown("""
 @st.cache_resource
 def load_pipeline_artifacts():
     try:
-        model = joblib.load("best_model.pkl")
-        scaler = joblib.load("scaler.pkl")
-        meta = joblib.load("encoders.pkl")
+        base_dir = os.path.dirname(__file__)
+        model_path = os.path.join(base_dir, "best_model.pkl")
+        scaler_path = os.path.join(base_dir, "scaler.pkl")
+        encoders_path = os.path.join(base_dir, "encoders.pkl")
+        
+        model = joblib.load(model_path)
+        scaler = joblib.load(scaler_path)
+        meta = joblib.load(encoders_path)
         encoders = meta["encoders"]
         feature_cols = meta["feature_cols"]
-        return model, scaler, encoders, feature_cols
+        return model, scaler, encoders, feature_cols, None
     except Exception as e:
-        return None, None, None, None
+        return None, None, None, None, e
 
 # Load the trained model and helper artifacts
-model, scaler, encoders, feature_cols = load_pipeline_artifacts()
+model, scaler, encoders, feature_cols, load_error = load_pipeline_artifacts()
 
 # Main top banner design
 st.markdown("""
@@ -159,6 +164,9 @@ st.markdown("""
 
 if model is None:
     st.error("❌ **Pipeline Artifacts Not Found!**")
+    if load_error is not None:
+        st.error(f"**Error Details:** {load_error}")
+        st.exception(load_error)
     st.info("Please run `python train_pipeline.py` in your project folder first to train the model and dump `best_model.pkl`, `scaler.pkl`, and `encoders.pkl`.")
     st.stop()
 
