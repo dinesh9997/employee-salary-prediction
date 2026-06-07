@@ -167,6 +167,11 @@ if model is None:
     if load_error is not None:
         st.error(f"**Error Details:** {load_error}")
         st.exception(load_error)
+        try:
+            import sklearn
+            st.info(f"ℹ️ **Deployed scikit-learn version:** `{sklearn.__version__}` (Local is `1.6.1`)")
+        except Exception as sklearn_err:
+            st.error(f"Could not import scikit-learn: {sklearn_err}")
     st.info("Please run `python train_pipeline.py` in your project folder first to train the model and dump `best_model.pkl`, `scaler.pkl`, and `encoders.pkl`.")
     st.stop()
 
