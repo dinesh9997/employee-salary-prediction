@@ -163,6 +163,21 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 if model is None:
+    # Self-healing: try to retrain if loading fails
+    with st.spinner("⚠️ Environment version mismatch detected. Retraining the Gradient Boosting model locally for compatibility..."):
+        try:
+            import train_pipeline
+            train_pipeline.train()
+            # Clear cache and retry
+            st.cache_resource.clear()
+            model, scaler, encoders, feature_cols, load_error = load_pipeline_artifacts()
+            if model is not None:
+                st.toast("🎉 Model successfully retrained and loaded!")
+        except Exception as retrain_err:
+            load_error = Exception(f"Original load error: {load_error}. Retraining failed: {retrain_err}")
+
+# Double check if model loading succeeded after potential retraining
+if model is None:
     st.error("❌ **Pipeline Artifacts Not Found!**")
     if load_error is not None:
         st.error(f"**Error Details:** {load_error}")
